@@ -1,0 +1,19 @@
+<% include ./head %>
+    <div class="container">
+      <h1 class="center">Create a Note <a id="create-note" href="/"><span class="thin">back</span></a></h1>
+      <div class="row">
+        <form class="col s12 m8 offset-m2 l6 offset-l3">
+          <div class="input-field">
+            <label for="title">Note Title</label>
+            <input id="title" name="title" type="text" />
+          </div>
+          <div class="input-field">
+            <label for="content">Note Content</label>
+            <textarea id="content" name="content" class="materialize-textarea"></textarea>
+          </div>
+          <button class="btn right" type="submit">Add</button>
+        </form>
+      </div>
+    </div>
+
+<% include ./footer %>

@@ -1,0 +1,28 @@
+<% include ./head %>
+    <div class="container">
+      <h1 class="center">Sticky Notes <span id="create-note" class="thin">Add note</span></h1>
+
+      <div id="create-note-form" class="row">
+        <form class="col s12 m8 offset-m2 l6 offset-l3">
+          <div class="input-field">
+            <label for="title">Note Title</label>
+            <input class="validate" id="title" name="title" type="text" required />
+          </div>
+          <div class="input-field">
+            <label for="content">Note Content</label>
+            <textarea id="content" name="content" class="materialize-textarea"></textarea>
+          </div>
+          <button class="btn light-blue darken-2 right" type="submit">Add</button>
+        </form>
+      </div>
+
+      <div id="notes-board" class="row">
+
+        <h2>Loading...</h2>
+
+
+      </div>
+
+    </div>
+
+<% include ./footer %>

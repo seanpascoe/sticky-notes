@@ -1,0 +1,29 @@
+#create-note {
+  color: #039be5;
+  background-color: #e1f5fe;
+  padding: 5px 25px;
+  margin-top: 5px;
+  border-radius: 4.2rem;
+  display: inline-block;
+  transition: 300ms;
+  cursor: pointer;
+}
+
+#create-note:hover {
+  color: #e1f5fe;
+  background-color: #039be5;
+  transition: 300ms;
+}
+
+#create-note-form {
+  display: none;
+  background-color: #e1f5fe;
+  padding-bottom: 25px;
+  padding-top: 15px;
+  border-radius: 0 0px 5px 5px;
+}
+
+#delete-note:hover {
+  cursor: pointer;
+  color: #f44336;
+}
