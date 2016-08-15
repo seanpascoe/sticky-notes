@@ -61,11 +61,11 @@ $(document).ready(function() {
           <div class="card small amber accent-1">
             <div class="card-content blue-grey-text">
               <span class="card-title">${note.title}</span>
-              <p>${note.content}</p>
+              <p class="note-content">${note.content}</p>
             </div>
             <div class="card-action">
-              <a href="#">View/Edit</a>
-              <a id="delete-note" note-id="${note._id}" class="right">Delete</a>
+              <a class="view-note">View/Edit</a>
+              <a class="delete-note no-select right">Delete</a>
             </div>
           </div>
         </div>
@@ -74,9 +74,14 @@ $(document).ready(function() {
     });
   }
 
+  //"double click to delete" toast
+  $('#notes-board').one('click', '.delete-note', function(e) {
+    Materialize.toast('Double-click to delete note', 3000, 'rounded')
+  });
+
   //delete note
-  $('#notes-board').on('dblclick', '#delete-note', function(e) {
-    var noteId = $(e.target).attr('note-id');
+  $('#notes-board').on('dblclick', '.delete-note', function(e) {
+    var noteId = $(e.target).closest('.note').attr('id');
 
     $.ajax({
       url: '/',
@@ -89,6 +94,55 @@ $(document).ready(function() {
       console.log(err);
     });
   })
+
+
+  //view/edit note
+  $('#notes-board').on('click', '.view-note', function(e) {
+    var noteEl = $(e.target).closest('.note')
+    var noteId = noteEl.attr('id');
+    var noteTitle = noteEl.find('.card-title').text();
+    var noteContent = noteEl.find('.note-content').text();
+    var notesBoard = $('#notes-board');
+
+    notesBoard.empty()
+
+
+    var note = {
+      id: noteId,
+      title: noteTitle,
+      content: noteContent
+    }
+    let noteHTML = `
+      <div id="${note.id}" class="note">
+        <div class="card col s12 m10 offset-m1 amber accent-1">
+          <div class="card-content blue-grey-text">
+            <span class="card-title" contenteditable>${note.title}</span>
+            <p contenteditable>${note.content}</p>
+          </div>
+          <div class="card-action">
+              <a class="save-note right">Save</a>
+              <a class="cancel-note right">Cancel</a>
+          </div>
+        </div>
+      </div>
+      `
+      notesBoard.append(noteHTML);
+  });
+
+  //save note with view/edit mode
+  $('#notes-board').on('click', '.save-note', function(e) {
+    var noteEl = $(e.target).closest('.note')
+    var noteId = noteEl.attr('id');
+    var noteTitle = noteEl.find('.card-title').text();
+    var noteContent = noteEl.find('.note-content').text();
+    console.log(noteTitle);
+  });
+
+
+  //save note with view/edit mode
+  $('#notes-board').on('click', '.cancel-note', function(e) {
+    getAllNotes();
+  });
 
   getAllNotes();
 
