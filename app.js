@@ -9,7 +9,6 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/sticky-notes');
 
 var routes = require('./routes/index');
-var create = require('./routes/create');
 var notes = require('./routes/notes');
 
 
@@ -28,7 +27,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/create', create);
 app.use('/notes', notes);
 
 // catch 404 and forward to error handler

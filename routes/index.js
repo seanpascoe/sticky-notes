@@ -7,6 +7,19 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Sticky Notes' });
 });
 
+/* Create new note */
+router.post('/', function(req, res) {
+  new Note({
+    title: req.body.title,
+    content: req.body.content
+  }).save( function(err, note) {
+    if(err) {
+      return res.status(500).json({ error: "Something went wrong!"});
+    }
+    return res.status(200).send({success: true});
+  });
+});
+
 /* Delete note */
 router.delete('/', function(req, res) {
   Note.findById(req.body.id, function(err, note) {
@@ -24,7 +37,7 @@ router.put('/', function(req, res) {
       if(err) {
         console.log(err);
       }
-      res.json(note);
+      res.status(201).send({succes: true});
     }
   )
 })

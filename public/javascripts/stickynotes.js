@@ -33,7 +33,7 @@ $(document).ready(function() {
     var contentEl = $('#content');
 
     $.ajax({
-      url: '/create',
+      url: '/',
       method: 'POST',
       data: {
         title: titleEl.val(),
@@ -136,7 +136,6 @@ $(document).ready(function() {
     var noteId = noteEl.attr('id');
     var noteTitle = noteEl.find('.card-title').text();
     var noteContent = noteEl.find('.note-content').text();
-    console.log(noteTitle, noteContent);
 
     $.ajax({
       url: '/',
@@ -148,7 +147,8 @@ $(document).ready(function() {
       },
       dataType: 'JSON'
     }).done(function(err, data) {
-      Materialize.toast('Note saved!', 1000, 'rounded')
+      Materialize.toast('Note saved!', 1000, 'rounded');
+      console.log(msg.success ? "Note Updated!" : "Somthing went wrong");
     }).fail(function(err) {
       console.log(err);
     });
