@@ -5,6 +5,7 @@ $(document).ready(function() {
     var btnText = $('#create-note-form').is(':visible') ? "Add Note" : "Cancel";
     $('#create-note-form').slideToggle();
     $('#create-note').text(btnText);
+    $('#title').focus();
   }
 
   //when create note button is clicked, toggle the form and button txt
@@ -25,9 +26,18 @@ $(document).ready(function() {
     });
   }
 
-  //add note logic
+  //'add note' button click handler
   $("button[type='submit']").on('click', function(e) {
     e.preventDefault();
+    if ($.trim($('#title').val())) {
+      addNote();
+    } else {
+      Materialize.toast('You need to enter a title!', 2000, 'rounded')
+    }
+  });
+
+  //add note logic
+  function addNote() {
     slideForm();
     var titleEl = $('#title');
     var contentEl = $('#content');
@@ -41,15 +51,13 @@ $(document).ready(function() {
       },
       dataType: 'JSON'
     }).done(function(msg) {
-      titleEl.val('');
-      contentEl.val('');
+      titleEl.closest('form')[0].reset();
       getAllNotes();
       console.log(msg.success ? "Note Created!" : "Somthing went wrong");
     }).fail(function(err) {
       console.log(err);
-    })
-  })
-
+    });
+  };
 
   //display all notes
   function displayNotes(notes) {
