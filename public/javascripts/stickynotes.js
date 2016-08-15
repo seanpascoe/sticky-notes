@@ -40,10 +40,11 @@ $(document).ready(function() {
         content: contentEl.val()
       },
       dataType: 'JSON'
-    }).done(function(note) {
+    }).done(function(msg) {
       titleEl.val('');
       contentEl.val('');
       getAllNotes();
+      console.log(msg.success ? "Note Created!" : "Somthing went wrong");
     }).fail(function(err) {
       console.log(err);
     })
@@ -106,27 +107,27 @@ $(document).ready(function() {
 
     notesBoard.empty()
 
-
     var note = {
       id: noteId,
       title: noteTitle,
       content: noteContent
     }
+
     let noteHTML = `
       <div id="${note.id}" class="note">
         <div class="card col s12 m10 offset-m1 amber accent-1">
           <div class="card-content blue-grey-text">
             <span class="card-title" contenteditable>${note.title}</span>
-            <p contenteditable>${note.content}</p>
+            <p class="note-content" contenteditable>${note.content}</p>
           </div>
           <div class="card-action">
               <a class="save-note right">Save</a>
-              <a class="cancel-note right">Cancel</a>
+              <a class="cancel-note right">Back</a>
           </div>
         </div>
       </div>
       `
-      notesBoard.append(noteHTML);
+      notesBoard.html(noteHTML);
   });
 
   //save note with view/edit mode
@@ -135,11 +136,26 @@ $(document).ready(function() {
     var noteId = noteEl.attr('id');
     var noteTitle = noteEl.find('.card-title').text();
     var noteContent = noteEl.find('.note-content').text();
-    console.log(noteTitle);
+    console.log(noteTitle, noteContent);
+
+    $.ajax({
+      url: '/',
+      method: 'PUT',
+      data: {
+        id: noteId,
+        title: noteTitle,
+        content: noteContent
+      },
+      dataType: 'JSON'
+    }).done(function(err, data) {
+      Materialize.toast('Note saved!', 1000, 'rounded')
+    }).fail(function(err) {
+      console.log(err);
+    });
   });
 
 
-  //save note with view/edit mode
+  //cancel view/edit mode
   $('#notes-board').on('click', '.cancel-note', function(e) {
     getAllNotes();
   });

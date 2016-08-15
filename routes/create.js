@@ -17,7 +17,7 @@ router.post('/', function(req, res) {
     if(err) {
       return res.status(500).json({ error: "Something went wrong!"});
     }
-    return res.send(note);
+    return res.status(200).send({success: true});
   });
 });
 
