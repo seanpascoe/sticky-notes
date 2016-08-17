@@ -69,8 +69,8 @@ $(document).ready(function() {
         <div id="${note._id}" class="note col s12 m6 l4">
           <div class="card small amber accent-1">
             <div class="card-content blue-grey-text">
-              <span class="card-title">${note.title}</span>
-              <p class="note-content">${note.content}</p>
+              <span class="card-title">${validator.escape(note.title)}</span>
+              <p class="note-content">${validator.escape(note.content)}</p>
             </div>
             <div class="card-action">
               <a class="view-note">View/Edit</a>
@@ -125,8 +125,8 @@ $(document).ready(function() {
       <div id="${note.id}" class="note">
         <div class="card col s12 m10 offset-m1 amber accent-1">
           <div class="card-content blue-grey-text">
-            <span class="card-title" contenteditable>${note.title}</span>
-            <p class="note-content" contenteditable>${note.content}</p>
+            <span class="card-title" contenteditable>${validator.escape(note.title)}</span>
+            <p class="note-content" contenteditable>${validator.escape(note.content)}</p>
           </div>
           <div class="card-action">
               <a class="save-note right">Save</a>
@@ -138,7 +138,7 @@ $(document).ready(function() {
       notesBoard.html(noteHTML);
   });
 
-  //save note with view/edit mode
+  //save note within view/edit mode
   $('#notes-board').on('click', '.save-note', function(e) {
     var noteEl = $(e.target).closest('.note')
     var noteId = noteEl.attr('id');
